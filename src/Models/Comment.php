@@ -14,16 +14,18 @@ use Rubik\LaravelComments\Traits\HasUniqueIdentifier;
 
 class Comment extends Model
 {
-    use HasFactory, SoftDeletes, HasUniqueIdentifier, HasComments;
+    use HasFactory;
+    use SoftDeletes;
+    use HasUniqueIdentifier;
+    use HasComments;
 
     protected $primaryKey = 'id';
 
     protected $guarded = [];
 
     protected $casts = [
-        'is_approved' => 'boolean'
+        'is_approved' => 'boolean',
     ];
-
 
     /**
      * Get all approved comments
@@ -67,20 +69,22 @@ class Comment extends Model
 
         if ($date instanceof Carbon) {
             $this->update([
-                'approved_at' => $date
+                'approved_at' => $date,
             ]);
+
             return $this;
         }
 
         if ($date) {
             $this->update([
-                'approved_at' => Carbon::parse($date)
+                'approved_at' => Carbon::parse($date),
             ]);
+
             return $this;
         }
 
         $this->update([
-            'approved_at' => Carbon::now()
+            'approved_at' => Carbon::now(),
         ]);
 
         return $this;
@@ -107,6 +111,6 @@ class Comment extends Model
      */
     public function getIsApprovedAttribute(): bool
     {
-        return !!$this->approved_at || !$this->needs_approval;
+        return ! ! $this->approved_at || ! $this->needs_approval;
     }
 }
