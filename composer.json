@@ -1,17 +1,22 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "rubik-llc/laravel-comments",
+    "description": "Integrate comments easily into Models",
     "keywords": [
-        ":vendor_name",
+        "rubik-llc",
         "laravel",
-        ":package_slug"
+        "laravel-comments"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/rubik-llc/laravel-comments",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Rron Nela",
+            "email": "rroni.dev@gmail.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Yllndrit Beka",
+            "email": "yllndritb@gmail.com",
             "role": "Developer"
         }
     ],
@@ -34,13 +39,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "Rubik\\LaravelComments\\": "src",
+            "Rubik\\LaravelComments\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Rubik\\LaravelComments\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -49,15 +54,19 @@
         "test-coverage": "vendor/bin/pest --coverage"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
+        }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Rubik\\LaravelComments\\LaravelCommentsServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "LaravelComments": "Rubik\\LaravelComments\\Facades\\LaravelComments"
             }
         }
     },
