@@ -6,7 +6,7 @@ use Rubik\LaravelComments\Commands\LaravelCommentsCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class LaravelCommentsServiceProvider extends PackageServiceProvider
+class CommentsServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
@@ -17,8 +17,8 @@ class LaravelCommentsServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('laravel-comments')
-            ->hasConfigFile()
-            ->hasMigration('create_laravel-comments_table')
+            ->hasConfigFile('comments')
+            ->hasMigration('create_comments_table')
             ->hasCommand(LaravelCommentsCommand::class);
     }
 }

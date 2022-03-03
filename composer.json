@@ -63,7 +63,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Rubik\\LaravelComments\\LaravelCommentsServiceProvider"
+              "CommentsServiceProvider"
             ],
             "aliases": {
                 "LaravelComments": "Rubik\\LaravelComments\\Facades\\LaravelComments"

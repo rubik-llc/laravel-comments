@@ -73,9 +73,7 @@ class Comment extends Model
         }
 
         if ($date) {
-            $this->update([
-                'approved_at' => Carbon::parse($date)
-            ]);
+            $this->getUpdate($date);
             return $this;
         }
 
@@ -108,5 +106,16 @@ class Comment extends Model
     public function getIsApprovedAttribute(): bool
     {
         return !!$this->approved_at || !$this->needs_approval;
+    }
+
+    /**
+     * @param Carbon|string $date
+     * @return void
+     */
+    public function getUpdate(Carbon|string $date): void
+    {
+        $this->update([
+            'approved_at' => Carbon::parse($date)
+        ]);
     }
 }

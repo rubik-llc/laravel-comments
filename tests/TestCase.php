@@ -4,7 +4,7 @@ namespace Rubik\LaravelComments\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Rubik\LaravelComments\LaravelCommentsServiceProvider;
+use Rubik\LaravelComments\CommentsServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -20,7 +20,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            LaravelCommentsServiceProvider::class,
+            CommentsServiceProvider::class,
         ];
     }
 
