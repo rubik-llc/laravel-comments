@@ -5,10 +5,8 @@ namespace Rubik\LaravelComments\Traits;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-
 trait HasUniqueIdentifier
 {
-
     public static function booted()
     {
         static::creating(function (Model $model) {
@@ -35,5 +33,4 @@ trait HasUniqueIdentifier
     {
         return 'string';
     }
-
 }

@@ -17,7 +17,6 @@ trait HasComments
      * public static bool $cascadeCommentsOnDelete = true;
      */
 
-
     /**
      * Defines polymorphic relation between the model that uses this trait and Comment
      * @return MorphMany
@@ -54,7 +53,7 @@ trait HasComments
             'user_id' => $user->id,
             'commentable_id' => $this->getKey(),
             'commentable_type' => get_class(),
-            'needs_approval' => $needsApproval
+            'needs_approval' => $needsApproval,
         ]);
 
         return $this->comments()->save($comment);
@@ -75,7 +74,7 @@ trait HasComments
      */
     protected static function bootHasComments()
     {
-        if (!isset(self::$cascadeCommentsOnDelete) || self::$cascadeCommentsOnDelete) {
+        if (! isset(self::$cascadeCommentsOnDelete) || self::$cascadeCommentsOnDelete) {
             static::deleted(function ($commentable) {
                 foreach ($commentable->comments as $comment) {
                     $comment->delete();
