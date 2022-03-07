@@ -1,6 +1,6 @@
 {
     "name": "rubik-llc/laravel-comments",
-    "description": "Integrate comments easily into Models",
+    "description": "Add comments into Eloquent Models",
     "keywords": [
         "rubik-llc",
         "laravel",
@@ -22,8 +22,8 @@
     ],
     "require": {
         "php": "^8.0",
-        "spatie/laravel-package-tools": "^1.9.2",
-        "illuminate/contracts": "^9.0"
+        "illuminate/contracts": "^9.0",
+        "spatie/laravel-package-tools": "^1.9.2"
     },
     "require-dev": {
         "nunomaduro/collision": "^6.0",
@@ -35,7 +35,8 @@
         "phpstan/phpstan-deprecation-rules": "^1.0",
         "phpstan/phpstan-phpunit": "^1.0",
         "phpunit/phpunit": "^9.5",
-        "spatie/laravel-ray": "^1.26"
+        "spatie/laravel-ray": "^1.26",
+        "spatie/pest-plugin-test-time": "^1.0"
     },
     "autoload": {
         "psr-4": {
@@ -63,7 +64,7 @@
     "extra": {
         "laravel": {
             "providers": [
-              "CommentsServiceProvider"
+              "Rubik\\LaravelComments\\CommentsServiceProvider"
             ],
             "aliases": {
                 "LaravelComments": "Rubik\\LaravelComments\\Facades\\LaravelComments"

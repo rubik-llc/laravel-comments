@@ -8,13 +8,9 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('test_models', function (Blueprint $table) {
                    $table->id();
-                   $table->uuidMorphs('commentable');
-                   $table->uuidMorphs('commenter');
-                   $table->text('comment');
-                   $table->boolean('needs_approval')->default(config('comments.needs_approval'));
-                   $table->timestamp('approved_at')->nullable();
+                   $table->string('name');
                    $table->timestamps();
                    $table->softDeletes();
                });

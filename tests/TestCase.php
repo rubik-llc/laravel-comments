@@ -13,7 +13,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Rubik\\LaravelComments\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
+            fn (string $modelName) => 'Rubik\\LaravelComments\\Tests\\Factories\\' . class_basename($modelName) . 'Factory'
         );
     }
 
@@ -30,6 +30,10 @@ class TestCase extends Orchestra
 
 
         $migration = include __DIR__ . '/../database/migrations/create_comments_table.php.stub';
+        $migration2 = include __DIR__ . '/TestSupport/database/migrations/create_test_models_table.php.stub';
+        $migration3 = include __DIR__ . '/TestSupport/database/migrations/create_users_table.php.stub';
         $migration->up();
+        $migration2->up();
+        $migration3->up();
     }
 }

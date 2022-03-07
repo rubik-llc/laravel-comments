@@ -41,16 +41,18 @@ trait HasComments
     /**
      * Attach a comment to this model as a specific user
      *
-     * @param $user
+     * @param $commenter
      * @param string $comment
      * @param bool $needsApproval
      * @return false|Comment
      */
-    public function commentAs($user, string $comment, bool $needsApproval = false): bool|Comment
+    public function commentAs($commenter, string $comment, bool $needsApproval = false): bool|Comment
     {
-        $comment = new Comment([
+        $commentClass = config('comments.comment_model');
+        $comment = new $commentClass([
             'comment' => $comment,
-            'user_id' => $user->id,
+            'commenter_id' => $commenter->getKey(),
+            'commenter_type' => get_class($commenter),
             'commentable_id' => $this->getKey(),
             'commentable_type' => get_class(),
             'needs_approval' => $needsApproval,
@@ -66,7 +68,7 @@ trait HasComments
      */
     public function commentsWithCommentsAndCommenter(): MorphMany
     {
-        return $this->morphMany(Comment::class, 'commentable')->with(['commentsWithCommentsAndCommenter', 'user']);
+        return $this->morphMany(Comment::class, 'commentable')->with(['commentsWithCommentsAndCommenter', 'commenter']);
     }
 
     /**
@@ -74,7 +76,15 @@ trait HasComments
      */
     protected static function bootHasComments()
     {
-        if (! isset(self::$cascadeCommentsOnDelete) || self::$cascadeCommentsOnDelete) {
+//        if (config('comments.cascade_on_delete') === true){
+//            static::deleted(function ($commentable) {
+//                foreach ($commentable->comments as $comment) {
+//                    $comment->delete();
+//                }
+//            });
+//        }
+
+        if (! isset(static::$cascadeCommentsOnDelete) || static::$cascadeCommentsOnDelete) {
             static::deleted(function ($commentable) {
                 foreach ($commentable->comments as $comment) {
                     $comment->delete();

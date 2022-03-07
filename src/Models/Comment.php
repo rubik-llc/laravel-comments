@@ -6,17 +6,14 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Rubik\LaravelComments\Traits\HasComments;
-use Rubik\LaravelComments\Traits\HasUniqueIdentifier;
 
 class Comment extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    use HasUniqueIdentifier;
     use HasComments;
 
     protected $primaryKey = 'id';
@@ -47,11 +44,11 @@ class Comment extends Model
     }
 
     /**
-     * @return BelongsTo
+     * @return MorphTo
      */
-    public function user(): BelongsTo
+    public function commenter(): MorphTo
     {
-        return $this->belongsTo(User::class);
+        return $this->morphTo();
     }
 
     /**
@@ -61,7 +58,7 @@ class Comment extends Model
      * @param bool $overwrite
      * @return Comment
      */
-    public function approve(string|Carbon $date = null, $overwrite = false): Comment
+    public function approve(string|Carbon $date = null, bool $overwrite = false): Comment
     {
         if ($this->approved_at && $overwrite === false) {
             return $this;
