@@ -85,7 +85,7 @@ trait HasComments
 //            });
 //        }
 
-        if (!isset(static::$cascadeCommentsOnDelete) || static::$cascadeCommentsOnDelete) {
+        if (! isset(static::$cascadeCommentsOnDelete) || static::$cascadeCommentsOnDelete) {
             static::deleted(function ($commentable) {
                 foreach ($commentable->comments as $comment) {
                     $comment->delete();
