@@ -3,17 +3,15 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use function Pest\Laravel\assertDatabaseHas;
+use function PHPUnit\Framework\assertInstanceOf;
 use Rubik\LaravelComments\Models\Comment;
 use Rubik\LaravelComments\Tests\Factories\TestModelFactory;
 use Rubik\LaravelComments\Tests\TestSupport\Models\TestModel;
 use Rubik\LaravelComments\Tests\TestSupport\Models\TestModelWithComments;
 use Rubik\LaravelComments\Tests\TestSupport\Models\User;
-use function Pest\Laravel\assertDatabaseHas;
-use function PHPUnit\Framework\assertInstanceOf;
-
 
 it('has comments', function () {
-
     TestModel::factory()->create();
 
     $testModel = TestModelWithComments::first();
@@ -22,11 +20,9 @@ it('has comments', function () {
 
     assertInstanceOf(Collection::class, $testModel->comments);
     expect($testModel->comments->count())->toBe(1);
-
 });
 
 it('can return all comments with commenter', function () {
-
     TestModelFactory::new()->create();
 
     $testModel = TestModelWithComments::first();
@@ -47,11 +43,9 @@ it('can return all comments with commenter', function () {
     expect($testModel->commentsWithCommentsAndCommenter->first()->commentsWithCommentsAndCommenter->count())->toBe(1);
     assertInstanceOf(Model::class, $testModel->commentsWithCommentsAndCommenter->first()->commenter);
     expect($testModel->commentsWithCommentsAndCommenter->last()->commentsWithCommentsAndCommenter->count())->toBe(3);
-
 });
 
 it('can attach comments', function () {
-
     login();
 
     TestModelFactory::new()->create();
@@ -62,11 +56,9 @@ it('can attach comments', function () {
 
     assertDatabaseHas('comments', ['comment' => 'test comment', 'commenter_id' => auth()->id()]);
     expect($testModel->comments->count())->toBe(1);
-
 });
 
 it('can attach comments as a different user', function () {
-
     TestModelFactory::new()->create();
 
     $testModel = TestModelWithComments::first();
@@ -77,12 +69,10 @@ it('can attach comments as a different user', function () {
 
     assertDatabaseHas('comments', ['comment' => 'test comment', 'commenter_id' => $user->id]);
     expect($testModel->comments->count())->toBe(1);
-
 });
 
 
 it('will delete all comments when a model is deleted', function () {
-
     TestModelFactory::new()->create();
 
     $testModel = TestModelWithComments::first();
@@ -95,7 +85,4 @@ it('will delete all comments when a model is deleted', function () {
     $testModel->delete();
 
     expect($testModel->refresh()->comments->count())->toBe(0);
-
 });
-
-

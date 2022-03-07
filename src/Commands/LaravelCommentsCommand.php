@@ -3,7 +3,6 @@
 namespace Rubik\LaravelComments\Commands;
 
 use Illuminate\Console\Command;
-use function Pest\Laravel\artisan;
 
 class LaravelCommentsCommand extends Command
 {
