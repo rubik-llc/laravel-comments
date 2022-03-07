@@ -17,6 +17,7 @@ class CommentFactory extends Factory
      * @var string
      */
     protected $model = Comment::class;
+
     /**
      * Define the model's default state.
      *
@@ -58,5 +59,4 @@ class CommentFactory extends Factory
             'approved_at' => $date ? Carbon::parse($date) : Carbon::now(),
         ]);
     }
-
 }

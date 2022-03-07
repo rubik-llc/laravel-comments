@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Rubik\LaravelComments\Tests\TestSupport\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,7 +10,10 @@ use Rubik\LaravelComments\Traits\CanComment;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, SoftDeletes, CanComment;
+    use HasFactory;
+    use Notifiable;
+    use SoftDeletes;
+    use CanComment;
 
     protected $primaryKey = 'id';
     /**
@@ -45,5 +47,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
 }

@@ -7,13 +7,13 @@ use Rubik\LaravelComments\Tests\TestSupport\Models\User;
 
 class UserFactory extends Factory
 {
-
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
     protected $model = User::class;
+
     /**
      * Define the model's default state.
      *
@@ -24,6 +24,7 @@ class UserFactory extends Factory
         $name = $this->faker->unique()->firstName();
         $lastName = $this->faker->unique()->lastName();
         $username = lcfirst($name[0]) . ucfirst($lastName);
+
         return [
             'name' => $name . " " . $lastName,
             'username' => $username,
@@ -32,7 +33,6 @@ class UserFactory extends Factory
         ];
     }
 
-
     /**
      * Indicate that the model's email address should be unverified.
      *
@@ -40,7 +40,8 @@ class UserFactory extends Factory
      */
     public function unverified(): Factory
     {
-        return $this->state([
+        return $this->state(
+            [
                 'email_verified_at' => null,
             ]
         );
