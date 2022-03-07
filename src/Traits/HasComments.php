@@ -2,6 +2,7 @@
 
 namespace Rubik\LaravelComments\Traits;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Rubik\LaravelComments\Models\Comment;
 
@@ -23,7 +24,7 @@ trait HasComments
      */
     public function comments(): MorphMany
     {
-        return $this->morphMany(Comment::class, 'commentable');
+        return $this->morphMany(config('comments.comment_model'), 'commentable');
     }
 
     /**
@@ -31,9 +32,9 @@ trait HasComments
      *
      * @param string $comment
      * @param bool $needsApproval
-     * @return bool|Comment
+     * @return bool|Model
      */
-    public function comment(string $comment, bool $needsApproval = false): Comment|bool
+    public function comment(string $comment, bool $needsApproval = false): Model|bool
     {
         return $this->commentAs(auth()->user(), $comment, $needsApproval);
     }
@@ -68,7 +69,7 @@ trait HasComments
      */
     public function commentsWithCommentsAndCommenter(): MorphMany
     {
-        return $this->morphMany(Comment::class, 'commentable')->with(['commentsWithCommentsAndCommenter', 'commenter']);
+        return $this->morphMany(config('comments.comment_model'), 'commentable')->with(['commentsWithCommentsAndCommenter', 'commenter']);
     }
 
     /**
@@ -84,7 +85,7 @@ trait HasComments
 //            });
 //        }
 
-        if (! isset(static::$cascadeCommentsOnDelete) || static::$cascadeCommentsOnDelete) {
+        if (!isset(static::$cascadeCommentsOnDelete) || static::$cascadeCommentsOnDelete) {
             static::deleted(function ($commentable) {
                 foreach ($commentable->comments as $comment) {
                     $comment->delete();
