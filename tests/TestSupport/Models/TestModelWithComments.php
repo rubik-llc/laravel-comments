@@ -8,5 +8,5 @@ class TestModelWithComments extends TestModel
 {
     use HasComments;
 
-    public static bool $cascadeCommentsOnDelete = true;
+//    public static bool $cascadeCommentsOnDelete = false;
 }

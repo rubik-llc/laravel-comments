@@ -18,6 +18,7 @@ trait HasComments
      * public static bool $cascadeCommentsOnDelete = true;
      */
 
+
     /**
      * Defines polymorphic relation between the model that uses this trait and Comment
      * @return MorphMany
@@ -36,7 +37,9 @@ trait HasComments
      */
     public function comment(string $comment, bool $needsApproval = false): Model|bool
     {
-        return $this->commentAs(auth()->user(), $comment, $needsApproval);
+//        TODO: me bo default prej config "needs_approval"
+//        TODO: retuen exception if user is not authenticated
+        return $this->commentAs(auth(config('comments.auth_guard'))->user(), $comment, $needsApproval);
     }
 
     /**
@@ -77,20 +80,22 @@ trait HasComments
      */
     protected static function bootHasComments()
     {
-//        if (config('comments.cascade_on_delete') === true){
-//            static::deleted(function ($commentable) {
-//                foreach ($commentable->comments as $comment) {
-//                    $comment->delete();
-//                }
-//            });
-//        }
-
-        if (!isset(static::$cascadeCommentsOnDelete) || static::$cascadeCommentsOnDelete) {
+        if (static::shouldCascadeOnDelete()) {
             static::deleted(function ($commentable) {
                 foreach ($commentable->comments as $comment) {
                     $comment->delete();
                 }
             });
         }
+    }
+
+    /**
+     * Return if comments should be deleted when the commentable model is deleted.
+     *
+     * @return bool
+     */
+    protected static function shouldCascadeOnDelete(): bool
+    {
+        return static::$cascadeCommentsOnDelete ?? config('comments.cascade_on_delete');
     }
 }

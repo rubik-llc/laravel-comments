@@ -1,5 +1,4 @@
 <?php
-// config for Rubik/LaravelComments
 
 return [
 
@@ -21,8 +20,8 @@ return [
     | Needs approval
     |--------------------------------------------------------------------------
     |
-    | The 'needs_approval' column indicates whether a comment needs to be approved
-    | or not.
+    | By default, when creating comments they don't need approval (unless specified otherwise).
+    | You can change the default value here.
     |
     */
 
@@ -36,32 +35,57 @@ return [
     | When this option is enabled, all related comments will be deleted when
     | the commentable class is deleted.
     |
+    | If you want to overwrite this config for a specific class, you need to add
+    | "$cascadeCommentsOnDelete" to the commentable class.
+    |
+    | E.g:
+    |
+    |   class Commentable extends Model
+    |   {
+    |       use HasComments;
+    |
+    |       public static bool $cascadeCommentsOnDelete = false;
+    |       ...
+    |
     */
 
     'cascade_on_delete' => true,
 
     /*
     |--------------------------------------------------------------------------
-    | Default commenter name attribute
+    | Commenter name attribute
     |--------------------------------------------------------------------------
     |
     | The default attribute that returns the name of the commenter.
     |
+    | If you want to overwrite this config for a specific class, you need to add
+    | "$nameAttribute" to the commenter class.
+    |
+    | E.g:
+    |
+    |   class Commenter extends Model
+    |   {
+    |       use CanComment;
+    |
+    |       public string $nameAttribute = 'username';
+    |       ...
+    |
     */
 
-    'default_commenter_name_attribute' => 'name',
+    'commenter_name_attribute' => 'name',
 
     /*
     |--------------------------------------------------------------------------
-    | Commenter name attribute
+    | Auth guard
     |--------------------------------------------------------------------------
     |
-    | You can specify name attributes for each model that uses the CanComment Trait.
-    | If a model doesn't exist in the array the 'default_commenter_name_attribute' will be returned.
+    | If your application uses a different auth guard from Laravel's default,
+    | you can specify it here in order to retrieve the authenticated user.
+    |
+    | If you leave it "null", it will use Laravel's default guard.
     |
     */
 
-    'commenter_name_attribute' => [
-//        User::class => 'username'
-    ]
+    'auth_guard' => null,
+
 ];

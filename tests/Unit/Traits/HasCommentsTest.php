@@ -86,3 +86,4 @@ it('will delete all comments when a model is deleted', function () {
 
     expect($testModel->refresh()->comments->count())->toBe(0);
 });
+
