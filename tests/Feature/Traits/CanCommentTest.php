@@ -2,14 +2,12 @@
 
 
 use Illuminate\Support\Collection;
-use Rubik\LaravelComments\Tests\Factories\TestModelFactory;
 use Rubik\LaravelComments\Tests\TestSupport\Models\TestModelCommenter;
 use Rubik\LaravelComments\Tests\TestSupport\Models\TestModelWithComments;
 use Rubik\LaravelComments\Tests\TestSupport\Models\User;
 use function Pest\Laravel\assertDatabaseHas;
 use function PHPUnit\Framework\assertInstanceOf;
 use Rubik\LaravelComments\Models\Comment;
-use Rubik\LaravelComments\Tests\TestSupport\Models\TestModel;
 
 it('will get the default name attribute from config file', function () {
 

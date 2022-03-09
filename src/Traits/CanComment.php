@@ -18,7 +18,6 @@ trait CanComment
      * public string $nameAttribute = 'name';
      */
 
-
     /**
      * By design, the initializeCanComment method will be called dynamically on the Eloquent model instance.
      */
@@ -77,13 +76,10 @@ trait CanComment
     {
         $nameAttribute = $this->nameAttribute ?? config('comments.commenter_name_attribute');
 
-        if (!isset($this->$nameAttribute) && !config('comments.silence_name_attribute_exception')){
+        if (! isset($this->$nameAttribute) && ! config('comments.silence_name_attribute_exception')) {
             throw new Exception("Attribute '{$nameAttribute}' does not exist in '".class_basename($this)."'.");
         }
 
         return $this->$nameAttribute;
     }
-
-
-
 }

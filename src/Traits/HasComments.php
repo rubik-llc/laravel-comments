@@ -19,7 +19,6 @@ trait HasComments
      * public static bool $cascadeCommentsOnDelete = true;
      */
 
-
     /**
      * Defines polymorphic relation between the model that uses this trait and Comment
      * @return MorphMany
@@ -39,9 +38,10 @@ trait HasComments
      */
     public function comment(string $comment, bool $needsApproval = null): Model|bool
     {
-        if (!auth(config('comments.auth_guard'))->check()){
+        if (! auth(config('comments.auth_guard'))->check()) {
             throw new AuthenticationException();
         }
+
         return $this->commentAs(auth(config('comments.auth_guard'))->user(), $comment, $needsApproval);
     }
 
