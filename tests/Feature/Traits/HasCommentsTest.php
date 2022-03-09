@@ -3,10 +3,10 @@
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Rubik\LaravelComments\Tests\TestSupport\Models\TestModelWithComments;
 use function Pest\Laravel\assertDatabaseHas;
 use function PHPUnit\Framework\assertInstanceOf;
 use Rubik\LaravelComments\Models\Comment;
+use Rubik\LaravelComments\Tests\TestSupport\Models\TestModelWithComments;
 use Rubik\LaravelComments\Tests\TestSupport\Models\User;
 
 beforeEach(function () {
@@ -14,7 +14,6 @@ beforeEach(function () {
 });
 
 it('has comments', function () {
-
     Comment::factory()->for($this->testModel, 'commentable')->create();
 
     assertInstanceOf(Collection::class, $this->testModel->comments);
@@ -52,9 +51,7 @@ it('can attach comments', function () {
 });
 
 it('will return authentication exception if you are not logged in and try to attach comments', function () {
-
     $this->testModel->comment('test comment');
-
 })->throws(AuthenticationException::class);
 
 it('can overwrite the default config for approval', function () {
@@ -71,7 +68,6 @@ it('can overwrite the default config for approval', function () {
 });
 
 it('can attach comments as a different user', function () {
-
     $user = User::factory()->create();
 
     $this->testModel->commentAs($user, 'test comment');
@@ -79,5 +75,3 @@ it('can attach comments as a different user', function () {
     assertDatabaseHas('comments', ['comment' => 'test comment', 'commenter_id' => $user->id]);
     expect($this->testModel->comments->count())->toBe(1);
 });
-
-

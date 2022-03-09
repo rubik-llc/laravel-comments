@@ -2,27 +2,24 @@
 
 
 use Illuminate\Support\Collection;
-use Rubik\LaravelComments\Tests\TestSupport\Models\TestModelCommenter;
-use Rubik\LaravelComments\Tests\TestSupport\Models\TestModelWithComments;
-use Rubik\LaravelComments\Tests\TestSupport\Models\User;
 use function Pest\Laravel\assertDatabaseHas;
 use function PHPUnit\Framework\assertInstanceOf;
 use Rubik\LaravelComments\Models\Comment;
+use Rubik\LaravelComments\Tests\TestSupport\Models\TestModelCommenter;
+use Rubik\LaravelComments\Tests\TestSupport\Models\TestModelWithComments;
+use Rubik\LaravelComments\Tests\TestSupport\Models\User;
 
 it('will get the default name attribute from config file', function () {
-
     $user = User::factory()->create();
     expect($user->commenter_name)->toBe($user->name);
 
     config()->set(['comments.commenter_name_attribute' => 'username']);
 
     expect($user->commenter_name)->toBe($user->username);
-
 });
 
 
 it('can overwrite the default name attribute from config file', function () {
-
     $user = User::factory()->create();
 
     $testModelCommenter = createTestModel(TestModelCommenter::class);
@@ -32,11 +29,9 @@ it('can overwrite the default name attribute from config file', function () {
 
     expect($user->commenter_name)->toBe($user->username);
     expect($testModelCommenter->commenter_name)->toBe($testModelCommenter->name);
-
 });
 
 it('has comments', function () {
-
     $user = User::factory()->create();
 
     Comment::factory()->for($user, 'commenter')->create();
@@ -46,7 +41,6 @@ it('has comments', function () {
 });
 
 it('can attach comments to a specified class', function () {
-
     $testModel = createTestModel(TestModelWithComments::class);
 
     $user = User::factory()->create();

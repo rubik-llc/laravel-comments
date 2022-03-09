@@ -6,5 +6,4 @@ use Rubik\LaravelComments\Models\Comment;
 
 class TestModelComment extends Comment
 {
-
 }
