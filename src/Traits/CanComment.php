@@ -2,6 +2,7 @@
 
 namespace Rubik\LaravelComments\Traits;
 
+use Exception;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Rubik\LaravelComments\Models\Comment;
 
@@ -16,6 +17,15 @@ trait CanComment
      *
      * public string $nameAttribute = 'name';
      */
+
+
+    /**
+     * By design, the initializeCanComment method will be called dynamically on the Eloquent model instance.
+     */
+    public function initializeCanComment()
+    {
+        $this->append('commenter_name');
+    }
 
     /**
      * Defines polymorphic relation between the model that uses this trait and Comment
@@ -49,18 +59,31 @@ trait CanComment
         return $this->comments()->save($comment);
     }
 
+    /**
+     *
+     * The commenter_name attribute.
+     */
+    public function getCommenterNameAttribute()
+    {
+        return $this->getName();
+    }
 
     /**
      *
      * Get the name of the commenter.
+     * @throws Exception
      */
     public function getName()
     {
         $nameAttribute = $this->nameAttribute ?? config('comments.commenter_name_attribute');
 
-//        TODO: check if attribute exists
+        if (!isset($this->$nameAttribute) && !config('comments.silence_name_attribute_exception')){
+            throw new Exception("Attribute '{$nameAttribute}' does not exist in '".class_basename($this)."'.");
+        }
 
         return $this->$nameAttribute;
     }
+
+
 
 }

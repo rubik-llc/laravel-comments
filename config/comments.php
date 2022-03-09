@@ -56,7 +56,9 @@ return [
     | Commenter name attribute
     |--------------------------------------------------------------------------
     |
-    | The default attribute that returns the name of the commenter.
+    | The default attribute that returns the name of the commenter. Every class
+    | that uses the "CanComment" trait will have the "commenter_name" attribute
+    | appended, which will return the value of the attribute specified here.
     |
     | If you want to overwrite this config for a specific class, you need to add
     | "$nameAttribute" to the commenter class.
@@ -73,6 +75,16 @@ return [
     */
 
     'commenter_name_attribute' => 'name',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Silence name attribute exception
+    |--------------------------------------------------------------------------
+    |
+    | By default
+    */
+
+    'silence_name_attribute_exception' => false,
 
     /*
     |--------------------------------------------------------------------------

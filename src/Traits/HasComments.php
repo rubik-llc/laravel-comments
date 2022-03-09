@@ -2,6 +2,7 @@
 
 namespace Rubik\LaravelComments\Traits;
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Rubik\LaravelComments\Models\Comment;
@@ -34,11 +35,13 @@ trait HasComments
      * @param string $comment
      * @param bool $needsApproval
      * @return bool|Model
+     * @throws AuthenticationException
      */
-    public function comment(string $comment, bool $needsApproval = false): Model|bool
+    public function comment(string $comment, bool $needsApproval = null): Model|bool
     {
-//        TODO: me bo default prej config "needs_approval"
-//        TODO: retuen exception if user is not authenticated
+        if (!auth(config('comments.auth_guard'))->check()){
+            throw new AuthenticationException();
+        }
         return $this->commentAs(auth(config('comments.auth_guard'))->user(), $comment, $needsApproval);
     }
 
@@ -50,7 +53,7 @@ trait HasComments
      * @param bool $needsApproval
      * @return false|Comment
      */
-    public function commentAs($commenter, string $comment, bool $needsApproval = false): bool|Comment
+    public function commentAs($commenter, string $comment, bool $needsApproval = null): bool|Comment
     {
         $commentClass = config('comments.comment_model');
         $comment = new $commentClass([
@@ -59,7 +62,7 @@ trait HasComments
             'commenter_type' => get_class($commenter),
             'commentable_id' => $this->getKey(),
             'commentable_type' => get_class(),
-            'needs_approval' => $needsApproval,
+            'needs_approval' => $needsApproval ?? config('comments.needs_approval'),
         ]);
 
         return $this->comments()->save($comment);

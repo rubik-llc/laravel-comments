@@ -1,6 +1,7 @@
 <?php
 
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use function Pest\Laravel\assertDatabaseHas;
@@ -56,6 +57,33 @@ it('can attach comments', function () {
 
     assertDatabaseHas('comments', ['comment' => 'test comment', 'commenter_id' => auth()->id()]);
     expect($testModel->comments->count())->toBe(1);
+});
+
+it('will return authentication exception if you are not logged in and try to attach comments', function () {
+
+    TestModelFactory::new()->create();
+
+    $testModel = TestModelWithComments::first();
+
+    $testModel->comment('test comment');
+
+})->throws(AuthenticationException::class);
+
+it('can overwrite the default config for approval', function () {
+    login();
+
+    TestModelFactory::new()->create();
+
+    $testModel = TestModelWithComments::first();
+
+    $testModel->comment('default test comment');
+
+    $testModel->comment('needs approval test comment', true);
+    $testModel->comment('doesn\'t need approval test comment', false);
+
+    assertDatabaseHas('comments', ['comment' => 'default test comment', 'needs_approval' => config('comments.needs_approval')]);
+    assertDatabaseHas('comments', ['comment' => 'needs approval test comment', 'needs_approval' => true]);
+    assertDatabaseHas('comments', ['comment' => 'doesn\'t need approval test comment', 'needs_approval' => false]);
 });
 
 it('can attach comments as a different user', function () {
