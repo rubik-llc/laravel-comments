@@ -14,11 +14,11 @@ use Rubik\LaravelComments\Tests\TestSupport\Models\TestModel;
 it('will get the default name attribute from config file', function () {
 
     $user = User::factory()->create();
-    expect($user->getName())->toBe($user->name);
+    expect($user->commenter_name)->toBe($user->name);
 
     config()->set(['comments.commenter_name_attribute' => 'username']);
 
-    expect($user->getName())->toBe($user->username);
+    expect($user->commenter_name)->toBe($user->username);
 
 });
 
@@ -27,15 +27,13 @@ it('can overwrite the default name attribute from config file', function () {
 
     $user = User::factory()->create();
 
-    TestModel::factory()->create();
-
-    $testModelCommenter = TestModelCommenter::first();
+    $testModelCommenter = createTestModel(TestModelCommenter::class);
 
     $user->nameAttribute = 'username';
     $testModelCommenter->nameAttribute = 'name';
 
-    expect($user->getName())->toBe($user->username);
-    expect($testModelCommenter->getName())->toBe($testModelCommenter->name);
+    expect($user->commenter_name)->toBe($user->username);
+    expect($testModelCommenter->commenter_name)->toBe($testModelCommenter->name);
 
 });
 
@@ -50,9 +48,8 @@ it('has comments', function () {
 });
 
 it('can attach comments to a specified class', function () {
-    TestModelFactory::new()->create();
 
-    $testModel = TestModelWithComments::first();
+    $testModel = createTestModel(TestModelWithComments::class);
 
     $user = User::factory()->create();
 

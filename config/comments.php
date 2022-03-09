@@ -36,7 +36,7 @@ return [
     | the commentable class is deleted.
     |
     | If you want to overwrite this config for a specific class, you need to add
-    | "$cascadeCommentsOnDelete" to the commentable class.
+    | "$cascadeCommentsOnDelete" property to the commentable class.
     |
     | E.g:
     |
@@ -61,7 +61,7 @@ return [
     | appended, which will return the value of the attribute specified here.
     |
     | If you want to overwrite this config for a specific class, you need to add
-    | "$nameAttribute" to the commenter class.
+    | "$nameAttribute" property to the commenter class.
     |
     | E.g:
     |
@@ -81,7 +81,12 @@ return [
     | Silence name attribute exception
     |--------------------------------------------------------------------------
     |
-    | By default
+    | By default, if the class that uses the "CanComment" trait doesn't have the
+    | name attribute specified in the "commenter_name_attribute" option or in
+    | the "$nameAttribute" property, an exception will be thrown. If you enable
+    | this option, no exception will be thrown and the "commenter_name" attribute
+    | will return "null" if it can't find the specified name attribute.
+    |
     */
 
     'silence_name_attribute_exception' => false,

@@ -16,6 +16,8 @@ class Comment extends Model
     use SoftDeletes;
     use HasComments;
 
+    protected $table = 'comments';
+
     protected $primaryKey = 'id';
 
     protected $guarded = [];

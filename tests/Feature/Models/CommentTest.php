@@ -37,7 +37,7 @@ it('belongs to commentable', function (string $model) {
     [Comment::class],
 ]);
 
-it('can determen if a comment is approved', function ($data, $value) {
+it('can determine if a comment is approved', function ($data, $value) {
     expect($data->is_approved)->toBe($value);
 })->with(
     [
