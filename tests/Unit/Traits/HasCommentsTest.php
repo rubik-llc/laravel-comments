@@ -60,13 +60,11 @@ it('can attach comments', function () {
 });
 
 it('will return authentication exception if you are not logged in and try to attach comments', function () {
-
     TestModelFactory::new()->create();
 
     $testModel = TestModelWithComments::first();
 
     $testModel->comment('test comment');
-
 })->throws(AuthenticationException::class);
 
 it('can overwrite the default config for approval', function () {
@@ -114,4 +112,3 @@ it('will delete all comments when a model is deleted', function () {
 
     expect($testModel->refresh()->comments->count())->toBe(0);
 });
-
