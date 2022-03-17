@@ -412,7 +412,7 @@ return [
 ```php
 $post->comment('My custom comment!');
 
-$post->comments->first(); // will return an instance of class CustomComment
+$post->comments->first(); // will return an instance of CustomComment
 ```
 
 ## Testing
