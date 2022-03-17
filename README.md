@@ -5,7 +5,6 @@
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/rubik-llc/laravel-comments/run-tests?label=tests)](https://github.com/rubik-llc/laravel-comments/actions/workflows/run-tests.yml)
 [![Check & fix styling](https://img.shields.io/github/workflow/status/rubik-llc/laravel-comments/Check%20&%20fix%20styling?label=check%20and%20fix%20styling)](https://github.com/rubik-llc/laravel-comments/actions/workflows/php-cs-fixer.yml)
 [![GitHub](https://img.shields.io/github/license/rubik-llc/laravel-comments)](LICENSE.md)
-![GitHub all releases](https://img.shields.io/github/downloads/rubik-llc/laravel-comments/total)
 
 This package enables to easily associate comments to any Eloquent model in your Laravel application.
 
