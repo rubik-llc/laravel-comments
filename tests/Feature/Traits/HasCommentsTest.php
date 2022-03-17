@@ -86,5 +86,4 @@ it('can retrieve only approved comments', function () {
 
     expect($this->testModel->comments->count())->toBe(3);
     expect($this->testModel->approvedComments->count())->toBe(2);
-
 });

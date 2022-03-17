@@ -58,7 +58,7 @@ class LaravelCommentsCommand extends Command
 //       |  _ <| |_| | |_) | |   <
 //       |_| \_\\\\__,_|_.__/|_|_|\_\
 //
-//");
+        //");
 
 
 //        if ($this->confirm('Do you wish to run migrations?', true)) {
