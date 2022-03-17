@@ -1,6 +1,6 @@
 {
     "name": "rubik-llc/laravel-comments",
-    "description": "Add comments into Eloquent Models",
+    "description": "Attach comments to Eloquent Models",
     "keywords": [
         "rubik-llc",
         "laravel",
@@ -21,8 +21,8 @@
         }
     ],
     "require": {
-        "php": "^7.4|^8.0|^8.1",
-        "illuminate/contracts": "^7.0|^8.0|^9.0",
+        "php": "^8.0",
+        "illuminate/contracts": "^9.0",
         "spatie/laravel-package-tools": "^1.9.2"
     },
     "require-dev": {

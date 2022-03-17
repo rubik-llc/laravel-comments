@@ -80,9 +80,3 @@ it('can be disapproved', function () {
     $comment->disapprove();
     expect($comment->refresh()->approved_at)->toBeNull();
 });
-
-//it('can delete', function () {
-//    $comment = Comment::factory()->create();
-//    $comment->delete();
-//    \Pest\Laravel\assertDatabaseCount('comments', 1);
-//});

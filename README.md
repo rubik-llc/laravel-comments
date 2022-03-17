@@ -1,31 +1,31 @@
 # Laravel comments
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/rubik-llc/laravel-comments.svg?style=flat-square)](https://packagist.org/packages/rubik-llc/laravel-comments)
-
-[//]: # ([![GitHub Code Style Action Status]&#40;https://img.shields.io/github/workflow/status/rubik-llc/laravel-comments/Check%20&%20fix%20styling?label=code%20style&#41;]&#40;https://github.com/rubik-llc/laravel-comments/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain&#41;)
-[//]: # ([![Total Downloads]&#40;https://img.shields.io/packagist/dt/rubik-llc/laravel-comments.svg?style=flat-square&#41;]&#40;https://packagist.org/packages/rubik-llc/laravel-comments&#41;)
-
-[![Check & fix styling](https://github.com/rubik-llc/laravel-comments/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/rubik-llc/laravel-comments/actions/workflows/php-cs-fixer.yml)
-[![run-tests](https://github.com/rubik-llc/laravel-comments/actions/workflows/run-tests.yml/badge.svg)](https://github.com/rubik-llc/laravel-comments/actions/workflows/run-tests.yml)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/rubik-llc/laravel-comments.svg)](https://packagist.org/packages/rubik-llc/laravel-comments)
+[![Check & fix styling](https://img.shields.io/github/workflow/status/rubik-llc/laravel-comments/php-cs-fixer.yml?label=check%20and%20fix%20styling)](https://github.com/rubik-llc/laravel-comments/actions/workflows/php-cs-fixer.yml)
+![Platform](https://img.shields.io/badge/platform-laravel-red)
+![GitHub all releases](https://img.shields.io/github/downloads/rubik-llc/laravel-comments/total)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/rubik-llc/laravel-comments/run-tests.yml?label=tests)](https://github.com/rubik-llc/laravel-comments/actions/workflows/run-tests.yml)
+[![GitHub](https://img.shields.io/github/license/rubik-llc/laravel-comments)](LICENSE.md)
 
 This package enables to easily associate comments to any Eloquent model in your Laravel application.
 
 ```php
 //Associate a comment to a model as a logged in user
-$myModel->comment('My comment!');
+$post->comment('My comment!');
 
 //Associate a comment to a model as a specific user
-$myModel->commentAs($user, "Another user's comment!");
+$post->commentAs($user, "Another user's comment!");
 ```
 
 ```php
 //Associate a comment to a model directly from the user
-$user->commentTo($myModel, 'Comment from user!');
+$user->commentTo($post, 'Comment from user!');
 ```
 
 ## Requirements
-- php
-- laravel
+
+![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/rubik-llc/laravel-comments)
+- laravel 9.0
 
 ## Installation
 
@@ -143,11 +143,13 @@ return [
 
 ];
 ```
+
 ## Usage
 
 ### Registering the Commentable Model
 
-In order to let your models have comments associated to them, simply add the `HasComments` trait to the class of that model.
+In order to let your models have comments associated to them, simply add the `HasComments` trait to the class of that
+model.
 
 ``` php
 namespace App\Models;
@@ -162,7 +164,8 @@ class Post extends Model
 }
 ```
 
-In addition to the configuration, you can specify whether the comments associated to a commentable class should be deleted when the commentable model is deleted by adding the `$cascadeCommentsOnDelete` property to the class.
+In addition to the configuration, you can specify whether the comments associated to a commentable class should be
+deleted when the commentable model is deleted by adding the `$cascadeCommentsOnDelete` property to the class.
 
 ``` php
 class Post extends Model
@@ -174,7 +177,6 @@ class Post extends Model
     ...
 }
 ```
-
 
 ### Registering the Commenter Model
 
@@ -193,8 +195,9 @@ class User extends Model
 }
 ```
 
-The `CanComment` trait appends a `commenter_name` attribute which returns the value of the attribute specified in the config file.
-In addition to that you can specify the name attribute, the value of which the `commenter_name` will have by adding the `$nameAttribute` property in the commenter class.
+The `CanComment` trait appends a `commenter_name` attribute which returns the value of the attribute specified in the
+config file. In addition to that you can specify the name attribute, the value of which the `commenter_name` will have
+by adding the `$nameAttribute` property in the commenter class.
 
 ``` php
 class User extends Model
@@ -210,11 +213,13 @@ class User extends Model
 In this case `$user->commenter_name` will return the same value as `$user->username`.
 
 ### Creating comments
+
 1. To create a comment for the currently logged in user you can use the following syntax.
 
 ```php
 $post->comment('First comment!');
 ```
+
 Additionally, you can specify whether a comment needs to be approved by adding a bool value as a second parameter.
 
 ```php
@@ -235,7 +240,7 @@ $post->commentAs($user, 'First comment!');
 $post->commentAs($user, 'Second comment!', true); // this comment needs to be approved
 ```
 
-3.  Eventually, comments can bre created directly from the user model.
+3. Eventually, comments can bre created directly from the user model.
 
 ```php
 $post = Post::find(1);
@@ -271,7 +276,8 @@ $user->comments;
 $user->approvedComments;
 ```
 
-### Retrieving commentable
+### Retrieving the commentable
+
 ```php
 $comment = Comment::find(1);
 
@@ -279,7 +285,8 @@ $comment = Comment::find(1);
 $comment->commentable;
 ```
 
-### Retrieving commenter
+### Retrieving the commenter
+
 ```php
 $comment = Comment::find(1);
 
@@ -289,13 +296,15 @@ $comment->commenter;
 
 ### Checking if comments are approved
 
-To quickly check if a comment is approved use the `is_approved` attribute, it will return true if a comment is approved or doesn't need approval, otherwise it will return false.
+To quickly check if a comment is approved use the `is_approved` attribute, it will return true if a comment is approved
+or doesn't need approval, otherwise it will return false.
 
 ```php
 $comment->is_approved // true/false
 ```
 
 ### Approving comments
+
 ```php
 $comment = Comment::find(1);
 
@@ -303,6 +312,7 @@ $comment->approve();
 
 $comment->approved_at // will return the date when the comment was approved
 ```
+
 The `approve()` method accepts a string or a `Carbon` instance as a parameter to specify the `approved_at` date.
 
 ```php
@@ -334,7 +344,7 @@ $comment->approved_at // '2020-01-18'
 
 $comment->approve('2022-01-01', true);
 
-$comment->approved_at // will return '2020-01-18'
+$comment->approved_at // will return '2022-01-01'
 ```
 
 ### Disapproving comments
@@ -346,9 +356,70 @@ $comment->approved_at // '2022-01-01'
 
 $comment->dissapprove();
 
-$comment->approved_at // null
-
+$comment->approved_at // will return null
 ```
+
+### Replying to comments
+
+Since the `Comment` class uses the `HasComments` trait, it is possible to attach comments to other comments.
+
+```php
+$comment = Comment::find(1); 
+
+$comment->comment('This is a reply for the first comment!')
+
+$comment->comments // will return all replies for this comment
+```
+
+### Recursively retrieving comments
+
+You can retrieve all comments with their children and commenter from the commentable using the `commentsWithCommentsAndCommenter()` relation.
+
+```php
+$post = Post::find(1); 
+
+$post->commentsWithCommentsAndCommenter
+```
+
+### Cascade on delete
+
+Deleting a commentable will also delete all comments that are attached to it.
+
+### Using a custom Comment class
+
+If you are using a custom comment class make sure it extends the default `Comment` class that is shipped with this
+package.
+
+``` php
+namespace App\Models;
+use Rubik\LaravelComments\Models\Comment;
+
+class CustomComment extends Comment
+{   
+    ...
+}
+```
+
+In addition to that, you need to set the `comment_model` value in the config file to the path of your custom class.
+
+```php
+// config/comments.php
+
+return [
+     ...
+    
+    'comment_model' => App\Models\CustomComment::class,  
+     
+     ...
+]
+````
+
+```php
+$post->comment('My custom comment!');
+
+$post->comments->first(); // will return an instance of class CustomComment
+```
+
 ## Testing
 
 ```bash
@@ -372,6 +443,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 - [Rron Nela](https://github.com/rronik)
 - [Yllndrit Beka](https://github.com/yllndritb)
 - [All Contributors](../../contributors)
+
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
