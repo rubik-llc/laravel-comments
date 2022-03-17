@@ -22,11 +22,6 @@ $post->commentAs($user, "Another user's comment!");
 $user->commentTo($post, 'Comment from user!');
 ```
 
-## Requirements
-
-![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/rubik-llc/laravel-comments)
-- laravel 9.0
-
 ## Installation
 
 You can install the package via composer:
