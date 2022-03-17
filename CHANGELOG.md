@@ -2,6 +2,6 @@
 
 All notable changes to `laravel-comments` will be documented in this file.
 
-## 1.0.0 - 2022-02-02
+## 0.1.0 - 2022-03-17
 
-- Initial release
+- Initial pre-release
