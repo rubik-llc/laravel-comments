@@ -112,7 +112,6 @@ class Comment extends Model
      */
     public function getIsApprovedAttribute(): bool
     {
-        return !!$this->approved_at || !$this->needs_approval;
+        return ! ! $this->approved_at || ! $this->needs_approval;
     }
-
 }
