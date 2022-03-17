@@ -29,6 +29,15 @@ trait HasComments
     }
 
     /**
+     * Defines polymorphic relation between the model that uses this trait and Comment
+     * @return MorphMany
+     */
+    public function approvedComments(): MorphMany
+    {
+        return $this->morphMany(config('comments.comment_model'), 'commentable')->approved();
+    }
+
+    /**
      * Attach a comment to this model
      *
      * @param string $comment
@@ -38,11 +47,11 @@ trait HasComments
      */
     public function comment(string $comment, bool $needsApproval = null): Model|bool
     {
-        if (! auth(config('comments.auth_guard'))->check()) {
+        if (! auth()->check()) {
             throw new AuthenticationException();
         }
 
-        return $this->commentAs(auth(config('comments.auth_guard'))->user(), $comment, $needsApproval);
+        return $this->commentAs(auth()->user(), $comment, $needsApproval);
     }
 
     /**

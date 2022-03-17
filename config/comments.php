@@ -91,18 +91,4 @@ return [
 
     'silence_name_attribute_exception' => false,
 
-    /*
-    |--------------------------------------------------------------------------
-    | Auth guard
-    |--------------------------------------------------------------------------
-    |
-    | If your application uses a different auth guard from Laravel's default,
-    | you can specify it here in order to retrieve the authenticated user.
-    |
-    | If you leave it "null", it will use Laravel's default guard.
-    |
-    */
-
-    'auth_guard' => null,
-
 ];

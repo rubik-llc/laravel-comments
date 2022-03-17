@@ -26,6 +26,8 @@ class Comment extends Model
         'is_approved' => 'boolean',
     ];
 
+    protected $appends = ['is_approved'];
+
     /**
      * Get all approved comments
      *
@@ -110,6 +112,7 @@ class Comment extends Model
      */
     public function getIsApprovedAttribute(): bool
     {
-        return ! ! $this->approved_at || ! $this->needs_approval;
+        return !!$this->approved_at || !$this->needs_approval;
     }
+
 }

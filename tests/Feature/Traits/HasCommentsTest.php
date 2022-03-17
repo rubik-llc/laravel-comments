@@ -75,3 +75,16 @@ it('can attach comments as a different user', function () {
     assertDatabaseHas('comments', ['comment' => 'test comment', 'commenter_id' => $user->id]);
     expect($this->testModel->comments->count())->toBe(1);
 });
+
+
+it('can retrieve only approved comments', function () {
+    login();
+
+    $this->testModel->comment('not approved test comment', true);
+    $this->testModel->comment('approved comment')->approved();
+    $this->testModel->comment('approved comment')->approved();
+
+    expect($this->testModel->comments->count())->toBe(3);
+    expect($this->testModel->approvedComments->count())->toBe(2);
+
+});

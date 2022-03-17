@@ -36,6 +36,15 @@ trait CanComment
     }
 
     /**
+     * Defines polymorphic relation between the model that uses this trait and Comment
+     * @return MorphMany
+     */
+    public function approvedComments(): MorphMany
+    {
+        return $this->morphMany(config('comments.comment_model'), 'commenter')->approved();
+    }
+
+    /**
      * Attach a comment to the specified model.
      *
      * @param $model
@@ -43,7 +52,7 @@ trait CanComment
      * @param bool $needsApproval
      * @return false|Comment
      */
-    public function commentTo($model, string $comment, bool $needsApproval = false): bool|Comment
+    public function commentTo($model, string $comment, bool $needsApproval = null): bool|Comment
     {
         $commentClass = config('comments.comment_model');
         $comment = new $commentClass([
@@ -52,7 +61,7 @@ trait CanComment
             'commenter_type' => get_class(),
             'commentable_id' => $model->getKey(),
             'commentable_type' => get_class($model),
-            'needs_approval' => $needsApproval,
+            'needs_approval' => $needsApproval ?? config('comments.needs_approval'),
         ]);
 
         return $this->comments()->save($comment);
