@@ -12,7 +12,9 @@ use Rubik\LaravelComments\Traits\HasComments;
 
 class Comment extends Model
 {
-    use HasFactory, SoftDeletes, HasComments;
+    use HasFactory;
+    use SoftDeletes;
+    use HasComments;
 
     protected $table = 'comments';
 
@@ -110,6 +112,6 @@ class Comment extends Model
      */
     public function getIsApprovedAttribute(): bool
     {
-        return !!$this->approved_at || !$this->needs_approval;
+        return ! ! $this->approved_at || ! $this->needs_approval;
     }
 }
