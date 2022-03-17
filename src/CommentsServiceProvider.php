@@ -2,7 +2,6 @@
 
 namespace Rubik\LaravelComments;
 
-use Rubik\LaravelComments\Commands\LaravelCommentsCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
