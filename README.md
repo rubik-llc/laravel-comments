@@ -1,10 +1,10 @@
 # Laravel comments
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/rubik-llc/laravel-comments.svg)](https://packagist.org/packages/rubik-llc/laravel-comments)
-[![Check & fix styling](https://img.shields.io/github/workflow/status/rubik-llc/laravel-comments/php-cs-fixer.yml?label=check%20and%20fix%20styling)](https://github.com/rubik-llc/laravel-comments/actions/workflows/php-cs-fixer.yml)
+[![Check & fix styling](https://img.shields.io/github/workflow/status/rubik-llc/laravel-comments/Check%20&%20fix%20styling?label=check%20and%20fix%20styling)](https://github.com/rubik-llc/laravel-comments/actions/workflows/php-cs-fixer.yml)
 ![Platform](https://img.shields.io/badge/platform-laravel-red)
 ![GitHub all releases](https://img.shields.io/github/downloads/rubik-llc/laravel-comments/total)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/rubik-llc/laravel-comments/run-tests.yml?label=tests)](https://github.com/rubik-llc/laravel-comments/actions/workflows/run-tests.yml)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/rubik-llc/laravel-comments/run-tests?label=tests)](https://github.com/rubik-llc/laravel-comments/actions/workflows/run-tests.yml)
 [![GitHub](https://img.shields.io/github/license/rubik-llc/laravel-comments)](LICENSE.md)
 
 This package enables to easily associate comments to any Eloquent model in your Laravel application.
